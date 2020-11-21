@@ -1,4 +1,4 @@
-_base_ = './faster_rcnn_r50_fpn_2x.py'
+_base_ = './faster_rcnn_r50_fpn_2x_coco.py'
 model = dict(
     pretrained='open-mmlab://resnext101_64x4d',
     backbone=dict(
