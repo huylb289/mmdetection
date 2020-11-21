@@ -37,12 +37,12 @@ data = dict(
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/valid_traffic_sign_dataset.json',
+        ann_file=data_root + 'traffic_train/valid_traffic_sign_dataset.json',
         img_prefix=data_root + 'traffic_train/images/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/valid_traffic_sign_dataset.json',
+        ann_file=data_root + 'traffic_train/valid_traffic_sign_dataset.json',
         img_prefix=data_root + 'traffic_train/images/',
         pipeline=test_pipeline))
 evaluation = dict(interval=10, metric='bbox')
