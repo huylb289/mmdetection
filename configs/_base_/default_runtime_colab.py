@@ -11,5 +11,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 load_from = None
 resume_from = None
-work_dirs = osp.join('/content/drive/MyDrive/ts/', osp.splitext(osp.basename(args.config))[0])
+work_dirs = '/content/drive/MyDrive/ts/'
 workflow = [('train', 1)]
