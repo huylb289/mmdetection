@@ -1,5 +1,6 @@
 dataset_type = 'CocoDataset'
 data_root = 'data/za_traffic_2020/'
+classes = ('1. No entry', '2. No parking / waiting', '3. No turning', '4. Max Speed', '5. Other prohibition signs', '6. Warning', '7. Mandatory')
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -32,16 +33,19 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
+        classes=classes,
         ann_file=data_root + 'traffic_train/train_traffic_sign_dataset.json',
         img_prefix=data_root + 'traffic_train/images/',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
+        classes=classes,
         ann_file=data_root + 'traffic_train/valid_traffic_sign_dataset.json',
         img_prefix=data_root + 'traffic_train/images/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
+        classes=classes,
         ann_file=data_root + 'traffic_train/valid_traffic_sign_dataset.json',
         img_prefix=data_root + 'traffic_train/images/',
         pipeline=test_pipeline))
