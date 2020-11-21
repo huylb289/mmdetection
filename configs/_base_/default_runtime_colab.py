@@ -11,5 +11,5 @@ dist_params = dict(backend='nccl')
 log_level = 'INFO'
 load_from = None
 resume_from = None
-work_dirs = '/content/drive/MyDrive/ts/'
+work_dir = '/content/drive/MyDrive/ts/'
 workflow = [('train', 1)]
