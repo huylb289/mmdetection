@@ -1,5 +1,5 @@
 import mmcv
-from mmdet.apis import init_detector, inference_detector, show_result_pyplot
+from mmdet.apis import init_detector, inference_detector
 import time
 import json
 import argparse
@@ -44,7 +44,7 @@ def main():
         print ("BEGIN - image index: {}, image name: {}".format(idx, img_name))
         img_im_temp = mmcv.imread(test_file_path)
         bbox_result = inference_detector(model, test_file_path)
-        model.show_result(img_im_temp, bbox_result, score_thr=0.3, show=False, out_file=out_img_path):
+        model.show_result(img_im_temp, bbox_result, score_thr=0.3, show=False, out_file=out_img_path)
         bboxes = np.vstack(bbox_result)
         labels = [
             np.full(bbox.shape[0], i, dtype=np.int32)
