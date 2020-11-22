@@ -14,6 +14,7 @@ def parse_args():
     parser.add_argument('config', help='train config file path')
     parser.add_argument('checkpoint', help='the checkpoint file to resume from')
     parser.add_argument('--save-dir', help='the dir to save images')
+    args = parser.parse_args()
 
     return args
 
