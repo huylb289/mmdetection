@@ -75,7 +75,7 @@ def main():
             submit_list.append(temp_)
         print ("END - image index: {}, image name: {}".format(idx_image, img_name))
         print ("#"*50)
-    out_file = open("./submit_{}.json".format(time.time()), "w")  
+    out_file = open(os.path.join(save_folder, "./submit_{}.json".format(time.time())), "w")  
     json.dump(submit_list, out_file, indent = 6)  
     out_file.close()
 
