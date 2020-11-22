@@ -37,12 +37,12 @@ def main():
 
     submit_list = []
 
-    for idx, test_file_path in enumerate(glob.glob(public_test)):
+    for idx_image, test_file_path in enumerate(glob.glob(public_test)):
         img_file = os.path.basename(test_file_path)
         out_img_path = os.path.join(save_folder, img_file)
         img_name, _ = img_file.split('.')
         print ("#"*50)
-        print ("BEGIN - image index: {}, image name: {}".format(idx, img_name))
+        print ("BEGIN - image index: {}, image name: {}".format(idx_image, img_name))
         img_im_temp = mmcv.imread(test_file_path)
         bbox_result = inference_detector(model, test_file_path)
         model.show_result(img_im_temp, bbox_result, score_thr=0.3, show=False, out_file=out_img_path)
@@ -73,7 +73,7 @@ def main():
             print (label)
 
             submit_list.append(temp_)
-        print ("END - image index: {}, image name: {}".format(idx, img_name))
+        print ("END - image index: {}, image name: {}".format(idx_image, img_name))
         print ("#"*50)
     out_file = open("./submit_{}.json".format(time.time()), "w")  
     json.dump(submit_list, out_file, indent = 6)  
