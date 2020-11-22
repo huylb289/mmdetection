@@ -1,5 +1,5 @@
 import mmcv
-from mmdet.apis import init_detector, inference_detector, show_result_pyplot, show_result
+from mmdet.apis import init_detector, inference_detector, show_result_pyplot
 import time
 import json
 import argparse
@@ -38,21 +38,25 @@ def main():
 
     for idx, test_file_path in enumerate(glob.glob(public_test)):
         img_file = os.path.basename(test_file_path)
+        out_img_path = os.path.join(save_folder, img_file)
         img_name, _ = img_file.split('.')
         print ("#"*50)
         print ("BEGIN - image index: {}, image name: {}".format(idx, img_name))
-        
         img_im_temp = mmcv.imread(test_file_path)
-        result = inference_detector(model, test_file_path)
-        img_out, out_bboxes, out_labels = show_result(test_file_path, result, class_names, show=False)
-        out_scores = out_bboxes[:, -1]
-        inds = out_scores > score_thr
-        out_bboxes = out_bboxes[inds, :]
-        out_labels = out_labels[inds]
-        
-        mmcv.imwrite(img_out, os.path.join(save_folder, img_file))
-        
-        for idx, (bbox, label) in enumerate(zip(out_bboxes, out_labels)):
+        bbox_result = inference_detector(model, test_file_path)
+        model.show_result(img_im_temp, bbox_result, score_thr=0.3, show=False, out_file=out_img_path):
+        bboxes = np.vstack(bbox_result)
+        labels = [
+            np.full(bbox.shape[0], i, dtype=np.int32)
+            for i, bbox in enumerate(bbox_result)
+        ]
+        labels = np.concatenate(labels)
+
+        scores = bboxes[:, -1]
+        inds = scores > score_thr
+        bboxes = bboxes[inds, :]
+        labels = labels[inds]
+        for idx, (bbox, label) in enumerate(zip(bboxes, labels)):
             temp_ = dict()
             temp_["image_id"] = int(img_name)
             bbox_elem0, bbox_elem1, bbox_elem2, bbox_elem3, score = bbox
